@@ -38,8 +38,9 @@ def add_data():
 def index():
   try:
     doc_ref = firebase_db.collection("Data")
-    data = doc_ref.order_by("Date", direction="DESCENDING")
-    return render_template("/home/home.html", data=data)
+    doc_data = doc_ref.order_by("Date", direction="DESCENDING")
+    print(doc_data.get("Temperature"))
+    return render_template("/home.html", data=doc_data)
   
   except Exception as e:
     return jsonify({
@@ -49,4 +50,4 @@ def index():
     
 
 if __name__ == '__main__':
-  app.run(host='192.168.1.13', port=5000)
+  app.run(host='localhost', port=5000)
